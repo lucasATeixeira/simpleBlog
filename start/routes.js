@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 /*
 |--------------------------------------------------------------------------
@@ -14,11 +14,11 @@
 */
 
 /** @type {typeof import('@adonisjs/framework/src/Route/Manager')} */
-const Route = use("Route");
+const Route = use('Route');
 
-Route.post("sessions", "SessionController.store");
+Route.post('sessions', 'SessionController.store').validator('Session');
 
-Route.post("users", "UserController.store");
+Route.post('users', 'UserController.store').validator('User');
 
-Route.post("forgot", "ForgotPasswordController.store");
-Route.put("forgot", "ForgotPasswordController.update");
+Route.post('forgot', 'ForgotPasswordController.store').validator('Forgot');
+Route.put('forgot', 'ForgotPasswordController.update').validator('Reset');
