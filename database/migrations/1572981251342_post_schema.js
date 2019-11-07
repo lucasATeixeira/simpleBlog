@@ -1,28 +1,28 @@
-"use strict";
+'use strict';
 
 /** @type {import('@adonisjs/lucid/src/Schema')} */
-const Schema = use("Schema");
+const Schema = use('Schema');
 
 class PostSchema extends Schema {
   up() {
-    this.create("posts", table => {
+    this.create('posts', table => {
       table.increments();
-      table.string("title").notNullable();
-      table.text("body").notNullable();
+      table.string('title').notNullable();
+      table.text('body').notNullable();
       table
-        .integer("author")
+        .integer('author')
         .notNullable()
         .unsigned()
-        .references("id")
-        .inTable("users")
-        .onUpdate("CASCADE")
-        .onDelete("CASCADE");
+        .references('id')
+        .inTable('users')
+        .onUpdate('CASCADE')
+        .onDelete('CASCADE');
       table.timestamps();
     });
   }
 
   down() {
-    this.drop("posts");
+    this.drop('posts');
   }
 }
 

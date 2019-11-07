@@ -22,3 +22,7 @@ Route.post('users', 'UserController.store').validator('User');
 
 Route.post('forgot', 'ForgotPasswordController.store').validator('Forgot');
 Route.put('forgot', 'ForgotPasswordController.update').validator('Reset');
+
+Route.group(() => {
+  Route.post('/posts', 'PostController.store');
+}).middleware(['auth']);

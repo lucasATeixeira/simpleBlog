@@ -1,6 +1,8 @@
 'use strict';
 
-const Mail = use('Mail');
+const Kue = use('Kue');
+const ForgotMailJob = use('App/Jobs/ForgotMail');
+
 const Env = use('Env');
 const { randomBytes } = require('crypto');
 const { promisify } = require('util');
@@ -26,16 +28,7 @@ class ForgotPasswordController {
 
     await user.save();
 
-    await Mail.send(
-      'emails.forgotpassword',
-      { name: user.name, resetPasswordUrl },
-      message => {
-        message
-          .to(email)
-          .from('lucas.at.negocios@gmail.com | Lucas Teixeira')
-          .subject('Blog REAL - Recuperação de senha');
-      }
-    );
+    Kue.dispatch(ForgotMailJob.key, { user, resetPasswordUrl });
   }
 
   async update({ request, response }) {

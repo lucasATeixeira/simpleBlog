@@ -1,76 +1,83 @@
-"use strict";
+'use strict';
 
-const Mail = use("Mail");
+// const Mail = use('Mail');
 
-const Hash = use("Hash");
+const Hash = use('Hash');
+
+const { ioc } = use('@adonisjs/fold');
 
 /** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
-const User = use("App/Models/User");
+const User = use('App/Models/User');
 
 /** @type {import('@adonisjs/lucid/src/Factory')} */
-const Factory = use("Factory");
+const Factory = use('Factory');
 
-const { test, trait } = use("Test/Suite")("Forgot Password");
+const Mail = use('Mail');
 
-trait("Test/ApiClient");
-trait("DatabaseTransactions");
+const ForgotMail = use('App/Jobs/ForgotMail');
 
-async function generateForgotPasswordTokenOnUser(client, payload) {
-  await Factory.model("App/Models/User").create(payload);
+const { test, trait } = use('Test/Suite')('Forgot Password');
 
-  await client
-    .post("/forgot")
-    .send(payload)
-    .end();
+trait('Test/ApiClient');
+trait('DatabaseTransactions');
 
-  const user = await User.findByOrFail("email", payload.email);
-
-  return user;
-}
-
-test("it should send an email reset password and insert token informations at User model", async ({
-  client,
-  assert
-}) => {
+async function generateForgotPasswordTokenOnUser(client, assert) {
   Mail.fake();
+  ioc.fake('App/Jobs/ForgotMail', () => {
+    return {};
+  });
 
   const forgotPayload = {
-    email: "lucas.at.negocios@gmail.com"
+    email: 'lucas.at.negocios@gmail.com',
   };
 
-  const user = await generateForgotPasswordTokenOnUser(client, forgotPayload);
+  const user = await Factory.model('App/Models/User').create(forgotPayload);
+
+  await client
+    .post('/forgot')
+    .send({ email: user.email })
+    .end();
+
+  await new ForgotMail().handle({ user });
 
   const recentEmail = Mail.pullRecent();
 
-  assert.exists(user.token);
-  assert.exists(user.token_created_at);
-  assert.equal(recentEmail.message.to[0].address, forgotPayload.email);
+  assert.equal(recentEmail.message.to[0].address, user.email);
+
+  const userWithToken = await User.findByOrFail('email', user.email);
+
+  ioc.restore('App/Jobs/ForgotMail');
 
   Mail.restore();
+
+  return userWithToken;
+}
+
+test('it should send an email reset password and insert token informations at User model', async ({
+  client,
+  assert,
+}) => {
+  const user = await generateForgotPasswordTokenOnUser(client, assert);
+
+  assert.exists(user.token);
+  assert.exists(user.token_created_at);
 });
 
-test("it should be able to reset password", async ({ client, assert }) => {
-  const forgotPayload = {
-    email: "lucas.at.negocios@gmail.com"
-  };
-
-  const userWithToken = await generateForgotPasswordTokenOnUser(
-    client,
-    forgotPayload
-  );
+test('it should be able to reset password', async ({ client, assert }) => {
+  const userWithToken = await generateForgotPasswordTokenOnUser(client, assert);
 
   await client
-    .put("/forgot")
+    .put('/forgot')
     .send({
       token: userWithToken.token,
-      password: "nova-senha",
-      password_confirmation: "nova-senha"
+      password: 'nova-senha',
+      password_confirmation: 'nova-senha',
     })
     .end();
 
-  const user = await User.findByOrFail("email", forgotPayload.email);
+  const user = await User.findByOrFail('email', userWithToken.email);
 
-  const checkPassword = await Hash.verify("nova-senha", user.password);
+  const checkPassword = await Hash.verify('nova-senha', user.password);
 
   assert.isTrue(checkPassword);
 });
