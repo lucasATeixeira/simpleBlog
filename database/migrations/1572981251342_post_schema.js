@@ -7,16 +7,23 @@ class PostSchema extends Schema {
   up() {
     this.create('posts', table => {
       table.increments();
-      table.string('title').notNullable();
-      table.text('body').notNullable();
       table
-        .integer('author')
+        .integer('avatar_id')
+        .unsigned()
+        .references('id')
+        .inTable('files')
+        .onUpdate('SET NULL')
+        .onDelete('CASCADE');
+      table
+        .integer('author_id')
         .notNullable()
         .unsigned()
         .references('id')
         .inTable('users')
         .onUpdate('CASCADE')
         .onDelete('CASCADE');
+      table.string('title').notNullable();
+      table.text('body').notNullable();
       table.timestamps();
     });
   }

@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 /*
 |--------------------------------------------------------------------------
@@ -12,14 +12,22 @@
 */
 
 /** @type {import('@adonisjs/lucid/src/Factory')} */
-const Factory = use("Factory");
+const Factory = use('Factory');
 
-Factory.blueprint("App/Models/User", (faker, id, data = {}) => {
+Factory.blueprint('App/Models/User', (faker, id, data = {}) => {
   return {
     name: faker.name(),
     email: faker.email(),
     password: faker.password(),
     bio: faker.paragraph(),
-    ...data
+    ...data,
+  };
+});
+
+Factory.blueprint('App/Models/Post', (faker, id, data = {}) => {
+  return {
+    title: faker.sentence({ words: 7 }),
+    body: faker.paragraph(),
+    ...data,
   };
 });

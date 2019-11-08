@@ -22,5 +22,5 @@ test('It should create user and return at least name, password and email', async
     .end();
 
   response.assertStatus(200);
-  assert.containsAllKeys(response.body, ['name', 'email', 'password']);
+  assert.containsAllKeys(response.body, ['name', 'email']);
 });

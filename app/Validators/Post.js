@@ -1,14 +1,14 @@
 'use strict';
 const Antl = use('Antl');
-class Reset {
+class Post {
   get validateAll() {
     return true;
   }
 
   get rules() {
     return {
-      token: 'required',
-      password: 'required|confirmed',
+      title: 'required|accepted',
+      body: 'required|accepted',
     };
   }
 
@@ -17,4 +17,4 @@ class Reset {
   }
 }
 
-module.exports = Reset;
+module.exports = Post;

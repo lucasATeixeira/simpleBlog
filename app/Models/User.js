@@ -10,10 +10,6 @@ class User extends Model {
   static boot() {
     super.boot();
 
-    /**
-     * A hook to hash the user password before saving
-     * it to the database.
-     */
     this.addHook('beforeSave', async userInstance => {
       if (userInstance.dirty.password) {
         userInstance.password = await Hash.make(userInstance.password);
@@ -32,12 +28,20 @@ class User extends Model {
    * @return {Object}
    */
 
+  static get hidden() {
+    return ['password', 'token', 'token_created_at'];
+  }
+
   posts() {
-    return this.hasMany('App/Models/Posts');
+    return this.hasMany('App/Models/Post', 'id', 'author_id');
   }
 
   tokens() {
     return this.hasMany('App/Models/Token');
+  }
+
+  avatar() {
+    return this.belongsTo('App/Models/File', 'avatar_id', 'id');
   }
 }
 

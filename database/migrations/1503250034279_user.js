@@ -7,6 +7,13 @@ class UserSchema extends Schema {
   up() {
     this.create('users', table => {
       table.increments();
+      table
+        .integer('avatar_id')
+        .unsigned()
+        .references('id')
+        .inTable('files')
+        .onUpdate('SET NULL')
+        .onDelete('CASCADE');
       table.string('name').notNullable();
       table
         .string('email')

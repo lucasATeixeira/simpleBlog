@@ -23,6 +23,14 @@ Route.post('users', 'UserController.store').validator('User');
 Route.post('forgot', 'ForgotPasswordController.store').validator('Forgot');
 Route.put('forgot', 'ForgotPasswordController.update').validator('Reset');
 
+Route.get('files/:id', 'FileController.show');
+
 Route.group(() => {
-  Route.post('/posts', 'PostController.store');
+  Route.get('users', 'UserController.index');
+
+  Route.post('files', 'FileController.store');
+
+  Route.resource('posts', 'PostController').validator(
+    new Map([[['posts.store'], ['Post']], [['posts.update'], ['Post']]])
+  );
 }).middleware(['auth']);

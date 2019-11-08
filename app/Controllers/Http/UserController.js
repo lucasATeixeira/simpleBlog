@@ -3,6 +3,15 @@
 const User = use('App/Models/User');
 
 class UserController {
+  async index() {
+    const users = await User.query()
+      .with('posts')
+      .with('avatar')
+      .fetch();
+
+    return users;
+  }
+
   async store({ request }) {
     const data = request.only(['name', 'bio', 'password', 'email']);
 
