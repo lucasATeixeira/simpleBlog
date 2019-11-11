@@ -1,14 +1,14 @@
 # Blog simples para estudos em AdonisJS
 
-## O que foi estudado
+## 1. O que foi estudado
 
-### Testes Automatizados
+### 1.1. Testes Automatizados
 
 Foi estudado testes automatizados TDD no adonis JS para cada controller e método dentro desse controller utilizando o passo a passo da documentação do próprio adonis
 
 [Documentação](https://adonisjs.com/docs/4.1/testing)
 
-### Jobs
+### 1.2. Jobs
 
 Foi estudado a utilização de jobs principalmente em envio de emails para melhor performance, foi utilizado a biblioteca
 
@@ -16,7 +16,7 @@ Foi estudado a utilização de jobs principalmente em envio de emails para melho
 
 [Documentação](https://github.com/nrempel/adonis-kue)
 
-### Envio de Email
+### 1.3. Envio de Email
 
 Foi estudado envio de e-mails no adonis JS utilizando a funcionalidade:
 
@@ -26,7 +26,7 @@ Foi estudado envio de e-mails no adonis JS utilizando a funcionalidade:
 
 da própria documentação do adonisjs
 
-### Error Handler
+### 1.4. Error Handler
 
 Foi estudado uma forma de lidar com erros e excessões utilizando o comando do adonis
 
@@ -34,29 +34,29 @@ Foi estudado uma forma de lidar com erros e excessões utilizando o comando do a
 
 [Documentação](https://adonisjs.com/docs/4.1/exceptions)
 
-### Upload de Files
+### 1.5. Upload de Files
 
 Foi estudado o upload de files dentro do adonis js
 
 [Documentação](https://adonisjs.com/docs/4.1/file-uploads)
 
-### Internationalization
+### 1.6. Internationalization
 
 Foi estudado no adonis formas de mudar a linguagem de algumas respostas e returns
 
 [Documentação](https://adonisjs.com/docs/4.1/internationalization)
 
-### Validation
+### 1.7. Validation
 
 Foi estudado a validação de dados no adonis JS
 
 [Docuemntação](https://adonisjs.com/docs/4.1/validator)
 
-## Features para implementar
+## 2. Features para implementar
 
-- [x] Criação de usuário
+- [x] CRUD de usuário
 - [x] Forgot Password
-- [x] Criação de post
+- [x] CRUD de post
 - [x] Upload de Files
 - [ ] Follow em um author
 - [ ] Middleware para disparar emails quando um author seguido publicar um artigo
