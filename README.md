@@ -58,6 +58,6 @@ Foi estudado a validação de dados no adonis JS
 - [x] Forgot Password
 - [x] Criação de post
 - [x] Upload de Files
-- [] Follow em um author
-- [] Middleware para disparar emails quando um author seguido publicar um artigo
-- [] Roles and Permissions
+- [ ] Follow em um author
+- [ ] Middleware para disparar emails quando um author seguido publicar um artigo
+- [ ] Roles and Permissions
