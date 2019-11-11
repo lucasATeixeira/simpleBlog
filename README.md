@@ -50,7 +50,13 @@ Foi estudado no adonis formas de mudar a linguagem de algumas respostas e return
 
 Foi estudado a validação de dados no adonis JS
 
-[Docuemntação](https://adonisjs.com/docs/4.1/validator)
+[Documentação](https://adonisjs.com/docs/4.1/validator)
+
+### 1.8 Factory and Seeds
+
+Com Factory and Seeds é possível criar dados fictícios e aleatórios no banco de dados ou pra ser utilizado em testes
+
+[Documentação](https://adonisjs.com/docs/4.1/seeds-and-factories)
 
 ## 2. Features para implementar
 
@@ -58,6 +64,6 @@ Foi estudado a validação de dados no adonis JS
 - [x] Forgot Password
 - [x] CRUD de post
 - [x] Upload de Files
-- [ ] Follow em um author
+- [x] Follow em um author
 - [ ] Middleware para disparar emails quando um author seguido publicar um artigo
 - [ ] Roles and Permissions

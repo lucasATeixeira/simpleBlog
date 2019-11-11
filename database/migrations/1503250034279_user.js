@@ -12,8 +12,8 @@ class UserSchema extends Schema {
         .unsigned()
         .references('id')
         .inTable('files')
-        .onUpdate('SET NULL')
-        .onDelete('CASCADE');
+        .onUpdate('CASCADE')
+        .onDelete('SET NULL');
       table.string('name').notNullable();
       table
         .string('email')

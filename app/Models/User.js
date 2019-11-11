@@ -43,6 +43,18 @@ class User extends Model {
   avatar() {
     return this.belongsTo('App/Models/File', 'avatar_id', 'id');
   }
+
+  followers() {
+    return this.belongsToMany('App/Models/User', 'author_id', 'user_id', 'id')
+      .pivotTable('followers')
+      .withTimestamps();
+  }
+
+  following() {
+    return this.belongsToMany('App/Models/User', 'user_id', 'author_id', 'id')
+      .pivotTable('followers')
+      .withTimestamps();
+  }
 }
 
 module.exports = User;
