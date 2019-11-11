@@ -5,9 +5,29 @@ const Factory = use('Factory');
 
 const { test, trait } = use('Test/Suite')('Post');
 
+const Post = use('App/Models/Post');
+
 trait('Test/ApiClient');
 trait('DatabaseTransactions');
 trait('Auth/Client');
+
+test('It should be able to show a single post', async ({ client, assert }) => {
+  const user = await Factory.model('App/Models/User').create();
+
+  const post = await Factory.model('App/Models/Post').create({
+    author_id: user.id,
+  });
+
+  const response = await client
+    .get(`posts/${post.id}`)
+    .loginVia(user)
+    .end();
+
+  response.assertStatus(200);
+  assert.equal(response.body.title, post.title);
+  assert.equal(response.body.author_id, user.id);
+  assert.equal(response.body.body, post.body);
+});
 
 test('It should be able to create a post and return the informations', async ({
   assert,
@@ -47,7 +67,12 @@ test('It should be able to list all posts', async ({ client, assert }) => {
   assert.equal(response.body[0].body, post.body);
 });
 
-test('It should be able to show a single post', async ({ client, assert }) => {
+test('It should be able to update a post', async ({ client, assert }) => {
+  const postPayload = {
+    title: 'Título atualizado',
+    body: 'Corpo atualizadoo',
+  };
+
   const user = await Factory.model('App/Models/User').create();
 
   const post = await Factory.model('App/Models/Post').create({
@@ -55,35 +80,29 @@ test('It should be able to show a single post', async ({ client, assert }) => {
   });
 
   const response = await client
-    .get(`posts/${post.id}`)
+    .put(`posts/${post.id}`)
     .loginVia(user)
+    .send(postPayload)
     .end();
 
   response.assertStatus(200);
-  assert.equal(response.body.title, post.title);
-  assert.equal(response.body.author_id, user.id);
-  assert.equal(response.body.body, post.body);
+  assert.equal(response.body.title, postPayload.title);
+  assert.equal(response.body.body, postPayload.body);
 });
 
-// test('It should be able to update a post', async ({ client, assert }) => {
-//   const postPayload = {
-//     title: 'Título atualizado',
-//   };
+test('It should be able to delete a user', async ({ client, assert }) => {
+  const user = await Factory.model('App/Models/User').create();
 
-//   const user = await Factory.model('App/Models/User').create();
+  const post = await Factory.model('App/Models/Post').create({
+    author_id: user.id,
+  });
 
-//   const post = await Factory.model('App/Models/Post').create({
-//     author_id: user.id,
-//   });
+  await client
+    .delete(`posts/${post.id}`)
+    .loginVia(user)
+    .end();
 
-//   const response = await client
-//     .put(`posts/${post.id}`)
-//     .loginVia(user)
-//     .send(postPayload)
-//     .end();
+  const checkUser = await Post.find(user.id);
 
-//   const postHasBeenUpdated = response.body.title === postPayload.title;
-
-//   response.assertStatus(200);
-//   assert.isTrue(postHasBeenUpdated);
-// });
+  assert.isNull(checkUser);
+});

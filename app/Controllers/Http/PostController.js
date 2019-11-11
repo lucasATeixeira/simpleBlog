@@ -8,7 +8,7 @@
 const Post = use('App/Models/Post');
 
 class PostController {
-  async index({ request }) {
+  async index() {
     const posts = await Post.query()
       .with('author')
       .with('avatar')
@@ -36,9 +36,22 @@ class PostController {
     return post;
   }
 
-  async update({ params, request, response }) {}
+  async update({ request, params }) {
+    const post = await Post.findOrFail(params.id);
+    const data = request.only(['avatar_id', 'author_id', 'body', 'title']);
 
-  async destroy({ params, request, response }) {}
+    post.merge(data);
+
+    await post.save();
+
+    return post;
+  }
+
+  async destroy({ params }) {
+    const post = await Post.find(params.id);
+
+    await post.delete();
+  }
 }
 
 module.exports = PostController;

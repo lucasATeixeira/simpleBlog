@@ -18,17 +18,20 @@ const Route = use('Route');
 
 Route.post('sessions', 'SessionController.store').validator('Session');
 
-Route.post('users', 'UserController.store').validator('User');
-
 Route.post('forgot', 'ForgotPasswordController.store').validator('Forgot');
 Route.put('forgot', 'ForgotPasswordController.update').validator('Reset');
+
+Route.get('users', 'UserController.index');
+Route.get('users/:id', 'UserController.show');
 
 Route.get('files/:id', 'FileController.show');
 
 Route.group(() => {
-  Route.get('users', 'UserController.index');
+  Route.post('users', 'UserController.store').validator('User');
+  Route.put('users/:id', 'UserController.update').validator('UserUpdate');
+  Route.delete('users/:id', 'UserController.destroy');
 
-  Route.post('files', 'FileController.store');
+  Route.post('files', 'FileController.store').validator('File');
 
   Route.resource('posts', 'PostController').validator(
     new Map([[['posts.store'], ['Post']], [['posts.update'], ['Post']]])
