@@ -5,7 +5,14 @@ const Factory = use('Factory');
 
 const { test, trait } = use('Test/Suite')('Post');
 
+const { ioc } = use('@adonisjs/fold');
+
 const Post = use('App/Models/Post');
+
+const PostHook = use('App/Models/Hooks/PostHook');
+const Job = use('App/Jobs/PostMail');
+
+const Mail = use('Mail');
 
 trait('Test/ApiClient');
 trait('DatabaseTransactions');
@@ -106,3 +113,36 @@ test('It should be able to delete a user', async ({ client, assert }) => {
 
   assert.isNull(checkUser);
 });
+
+// test('It should be able to send email to followers after create post', async ({
+//   client,
+//   assert,
+// }) => {
+//   ioc.fake('App/Models/Hooks/PostHook', () => {
+//     return {
+//       sendNewPostMail: async () => {
+//         ioc.fake('App/Jobs/PostMail', () => {
+//           return {};
+//         });
+//         Mail.fake();
+//         await PostHook.sendNewPostMail(post);
+//         await new Job().handle({ user, author, post });
+
+//         const recentEmail = Mail.pullRecent();
+
+//         assert.equal(recentEmail.message.to[0].address, user.email);
+//         Mail.restore();
+//         ioc.restore('App/Jobs/PostMail');
+//       },
+//     };
+//   });
+//   const author = await Factory.model('App/Models/User').create();
+//   const user = await Factory.model('App/Models/User').create();
+
+//   await user.following().attach(author.id);
+
+//   const post = await Factory.model('App/Models/Post').create({
+//     author_id: author.id,
+//   });
+//   ioc.restore('App/Models/Hooks/PostHook');
+// });

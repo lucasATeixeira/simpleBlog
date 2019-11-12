@@ -4,6 +4,12 @@
 const Model = use('Model');
 
 class Post extends Model {
+  static boot() {
+    super.boot();
+
+    this.addHook('afterCreate', 'PostHook.sendNewPostMail');
+  }
+
   author() {
     return this.belongsTo('App/Models/User', 'author_id', 'id');
   }

@@ -65,5 +65,10 @@ Com Factory and Seeds é possível criar dados fictícios e aleatórios no banco
 - [x] CRUD de post
 - [x] Upload de Files
 - [x] Follow em um author
-- [ ] Middleware para disparar emails quando um author seguido publicar um artigo
+- [x] Middleware para disparar emails quando um author seguido publicar um artigo
 - [ ] Roles and Permissions
+- [ ] Slugify do post title para criar url do post e enviar no email
+
+## 3. Problemas para resolver
+
+- [ ] Teste automatizado do hook de envio de email quando houver criação de post de um following author

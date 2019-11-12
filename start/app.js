@@ -63,6 +63,6 @@ const aliases = {};
 */
 const commands = [];
 
-const jobs = ['App/Jobs/ForgotMail'];
+const jobs = ['App/Jobs/ForgotMail', 'App/Jobs/PostMail'];
 
 module.exports = { providers, aceProviders, aliases, commands, jobs };

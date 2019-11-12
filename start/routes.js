@@ -23,11 +23,11 @@ Route.put('forgot', 'ForgotPasswordController.update').validator('Reset');
 
 Route.get('users', 'UserController.index');
 Route.get('users/:id', 'UserController.show');
+Route.post('users', 'UserController.store').validator('User');
 
 Route.get('files/:id', 'FileController.show');
 
 Route.group(() => {
-  Route.post('users', 'UserController.store').validator('User');
   Route.put('users/:id', 'UserController.update').validator('UserUpdate');
   Route.delete('users/:id', 'UserController.destroy');
 
