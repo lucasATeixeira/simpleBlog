@@ -68,15 +68,17 @@ O Hooks do adonis foi utilizado após um post ser criado, quando o post é criad
 
 ## 2. Features para implementar
 
-- [x] CRUD de usuário
-- [x] Forgot Password
-- [x] CRUD de post
-- [x] Upload de Files
-- [x] Follow em um author
-- [x] Middleware para disparar emails quando um author seguido publicar um artigo
-- [ ] Roles and Permissions
-- [ ] Slugify do post.title para criar url e enviar no PostMail
+- [x] CRUD de usuário;
+- [x] Forgot Password;
+- [x] CRUD de post;
+- [x] Upload de Files;
+- [x] Follow em um author;
+- [x] Middleware para disparar emails quando um author seguido publicar um artigo;
+- [ ] Roles and Permissions;
+- [ ] Retornar um placeholder image se o usuário ou post não tiverem nenhuma avatar;
+- [ ] Slugify do post.title para criar url e enviar no PostMail;
 
 ## 3. Problemas para resolver
 
 - [ ] Teste automatizado do PostHook
+- [ ] No seed de PostSeeder não está sendo possível retornar os roles dos usuários criados pelo Factory
