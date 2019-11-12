@@ -15,6 +15,7 @@ class FollowingController {
 
     const alreadyFollowing = await user
       .following()
+      .orderBy('created_at')
       .where('author_id', author_id)
       .first();
 

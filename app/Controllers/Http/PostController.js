@@ -12,6 +12,7 @@ class PostController {
     const posts = await Post.query()
       .with('author')
       .with('avatar')
+      .orderBy('created_at')
       .fetch();
 
     return posts;

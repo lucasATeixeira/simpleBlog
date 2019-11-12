@@ -7,6 +7,7 @@ class UserController {
     const users = await User.query()
       .with('posts')
       .with('avatar')
+      .orderBy('created_at')
       .fetch();
 
     return users;

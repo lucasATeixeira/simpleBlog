@@ -37,8 +37,6 @@ Route.group(() => {
   Route.post('users/:author_id/following', 'FollowingController.store');
   Route.delete('users/:author_id/following', 'FollowingController.destroy');
 
-  Route.get('followers', 'FollowerController.index');
-
   Route.post('files', 'FileController.store').validator('File');
 
   Route.resource('posts', 'PostController').validator(

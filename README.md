@@ -72,10 +72,10 @@ O Hooks do adonis foi utilizado após um post ser criado, quando o post é criad
 - [x] Forgot Password
 - [x] CRUD de post
 - [x] Upload de Files
-- [x] Follow em um author (CRUD de follower)
+- [x] Follow em um author
 - [x] Middleware para disparar emails quando um author seguido publicar um artigo
 - [ ] Roles and Permissions
-- [ ] Slugify do post title para criar url do post e enviar no email
+- [ ] Slugify do post.title para criar url e enviar no PostMail
 
 ## 3. Problemas para resolver
 
