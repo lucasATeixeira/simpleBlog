@@ -1,6 +1,6 @@
 'use strict';
 
-const { test, trait } = use('Test/Suite')('Follow');
+const { test, trait } = use('Test/Suite')('Following');
 
 const Factory = use('Factory');
 
@@ -8,12 +8,30 @@ trait('Test/ApiClient');
 trait('DatabaseTransactions');
 trait('Auth/Client');
 
+test('It should be able to return a list of following authors', async ({
+  client,
+  assert,
+}) => {
+  const author = await Factory.model('App/Models/User').create();
+  const user = await Factory.model('App/Models/User').create();
+
+  await user.following().attach(author.id);
+
+  const response = await client
+    .get('following')
+    .loginVia(user)
+    .end();
+
+  assert.equal(response.body[0].name, author.name);
+  assert.equal(response.body[0].id, author.id);
+});
+
 test('It should be able to follow an author', async ({ client, assert }) => {
   const author = await Factory.model('App/Models/User').create();
   const user = await Factory.model('App/Models/User').create();
 
   const response = await client
-    .post(`users/${author.id}/followers`)
+    .post(`users/${author.id}/following`)
     .loginVia(user)
     .end();
 
@@ -31,7 +49,7 @@ test('It should be able to unfollow an author', async ({ client, assert }) => {
   await user.following().attach(author.id);
 
   const response = await client
-    .delete(`users/${author.id}/followers`)
+    .delete(`users/${author.id}/following`)
     .loginVia(user)
     .end();
 
@@ -52,7 +70,7 @@ test('It should not be able to follow an author that is already followed', async
   await user.following().attach(author.id);
 
   const response = await client
-    .post(`users/${author.id}/followers`)
+    .post(`users/${author.id}/following`)
     .loginVia(user)
     .end();
 

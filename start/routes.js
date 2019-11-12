@@ -31,8 +31,13 @@ Route.group(() => {
   Route.put('users/:id', 'UserController.update').validator('UserUpdate');
   Route.delete('users/:id', 'UserController.destroy');
 
-  Route.post('users/:author_id/followers', 'FollowerController.store');
-  Route.delete('users/:author_id/followers', 'FollowerController.destroy');
+  Route.get('followers', 'FollowerController.index');
+
+  Route.get('following', 'FollowingController.index');
+  Route.post('users/:author_id/following', 'FollowingController.store');
+  Route.delete('users/:author_id/following', 'FollowingController.destroy');
+
+  Route.get('followers', 'FollowerController.index');
 
   Route.post('files', 'FileController.store').validator('File');
 

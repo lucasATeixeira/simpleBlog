@@ -5,14 +5,14 @@ const Factory = use('Factory');
 
 const { test, trait } = use('Test/Suite')('Post');
 
-const { ioc } = use('@adonisjs/fold');
+// const { ioc } = use('@adonisjs/fold');
 
 const Post = use('App/Models/Post');
 
-const PostHook = use('App/Models/Hooks/PostHook');
-const Job = use('App/Jobs/PostMail');
+// const PostHook = use('App/Models/Hooks/PostHook');
+// const Job = use('App/Jobs/PostMail');
 
-const Mail = use('Mail');
+// const Mail = use('Mail');
 
 trait('Test/ApiClient');
 trait('DatabaseTransactions');

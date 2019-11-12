@@ -79,4 +79,4 @@ O Hooks do adonis foi utilizado após um post ser criado, quando o post é criad
 
 ## 3. Problemas para resolver
 
-- [ ] Teste automatizado do hook de envio de email quando houver criação de post de um following author
+- [ ] Teste automatizado do PostHook
