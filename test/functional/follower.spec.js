@@ -18,7 +18,7 @@ test('It should be able to return a list of followers', async ({
   await user.following().attach(author.id);
 
   const response = await client
-    .get('followers')
+    .get(`users/${author.id}/followers`)
     .loginVia(author)
     .end();
 
