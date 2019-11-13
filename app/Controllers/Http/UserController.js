@@ -20,9 +20,26 @@ class UserController {
   }
 
   async store({ request }) {
-    const data = request.only(['name', 'bio', 'password', 'email']);
+    const { permissions, roles, ...data } = request.only([
+      'name',
+      'bio',
+      'password',
+      'email',
+      'permissions',
+      'roles',
+    ]);
 
     const user = await User.create(data);
+
+    if (roles) {
+      await user.roles().attach(roles);
+    }
+
+    if (permissions) {
+      await user.permissions().attach(permissions);
+    }
+
+    await user.loadMany(['roles', 'permissions']);
 
     return user;
   }

@@ -27,19 +27,43 @@ Route.post('users', 'UserController.store').validator('User');
 
 Route.get('files/:id', 'FileController.show');
 
+Route.get('roles', 'RoleController.index');
+Route.get('roles/:id', 'RoleController.show');
+
 Route.group(() => {
   Route.put('users/:id', 'UserController.update').validator('UserUpdate');
-  Route.delete('users/:id', 'UserController.destroy');
+  Route.delete('users/:id', 'UserController.destroy').middleware(
+    'is:administrator'
+  );
 
-  Route.get('followers', 'FollowerController.index');
+  Route.get('users/:id/followers', 'FollowerController.index');
 
-  Route.get('following', 'FollowingController.index');
+  Route.get('users/:id/following', 'FollowingController.index');
   Route.post('users/:author_id/following', 'FollowingController.store');
   Route.delete('users/:author_id/following', 'FollowingController.destroy');
 
+  Route.post('roles', 'RoleController.store').middleware('is:administrator');
+  Route.put('roles/:id', 'RoleController.update').middleware(
+    'is:administrator'
+  );
+  Route.delete('roles/:id', 'RoleController.destroy').middleware(
+    'is:administrator'
+  );
+
+  Route.resource('permissions', 'PermissionController');
+  Route.get('users/:id/permissions', 'UserRolesAndPermissionController.show');
+
   Route.post('files', 'FileController.store').validator('File');
 
-  Route.resource('posts', 'PostController').validator(
-    new Map([[['posts.store'], ['Post']], [['posts.update'], ['Post']]])
-  );
+  Route.resource('posts', 'PostController')
+    .middleware(
+      new Map([
+        [['posts.store'], ['can:create-post']],
+        [['posts.update'], ['can:create-post']],
+        [['posts.destroy'], ['can:create-post']],
+      ])
+    )
+    .validator(
+      new Map([[['posts.store'], ['Post']], [['posts.update'], ['Post']]])
+    );
 }).middleware(['auth']);

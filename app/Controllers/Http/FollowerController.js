@@ -1,8 +1,10 @@
 'use strict';
 
+const User = use('App/Models/User');
+
 class FollowerController {
-  async index({ auth }) {
-    const user = await auth.getUser();
+  async index({ params }) {
+    const user = await User.find(params.id);
 
     const followers = await user
       .followers()

@@ -8,6 +8,8 @@ const Hash = use('Hash');
 
 const User = use('App/Models/User');
 
+const Role = use('Adonis/Acl/Role');
+
 trait('Test/ApiClient');
 trait('DatabaseTransactions');
 trait('Auth/Client');
@@ -97,6 +99,13 @@ test('It should update a user', async ({ client, assert }) => {
 
 test('It should be able to delete a user', async ({ client, assert }) => {
   const user = await Factory.model('App/Models/User').create();
+
+  const admin = await Role.create({
+    slug: 'administrator',
+    name: 'Administrador',
+  });
+
+  await user.roles().attach(admin.id);
 
   await client
     .delete(`users/${user.id}`)

@@ -21,10 +21,6 @@ class PostSeeder {
       .fetch();
 
     users.toJSON().forEach(async user => {
-      const [role] = user.roles;
-
-      if (!role || role.slug === 'reader') return;
-
       const randomNumber = Math.round(Math.random() * 5);
       await Factory.model('App/Models/Post').createMany(randomNumber, {
         author_id: user.id,

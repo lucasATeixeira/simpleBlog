@@ -9,6 +9,8 @@ const { test, trait } = use('Test/Suite')('Post');
 
 const Post = use('App/Models/Post');
 
+const Permission = use('Adonis/Acl/Permission');
+
 // const PostHook = use('App/Models/Hooks/PostHook');
 // const Job = use('App/Jobs/PostMail');
 
@@ -41,6 +43,13 @@ test('It should be able to create a post and return the informations', async ({
   client,
 }) => {
   const user = await Factory.model('App/Models/User').create();
+
+  const createPost = await Permission.create({
+    slug: 'create-post',
+    name: 'Criação de post',
+  });
+
+  await user.permissions().attach(createPost.id);
 
   const response = await client
     .post('posts')
@@ -82,6 +91,13 @@ test('It should be able to update a post', async ({ client, assert }) => {
 
   const user = await Factory.model('App/Models/User').create();
 
+  const createPost = await Permission.create({
+    slug: 'create-post',
+    name: 'Criação de post',
+  });
+
+  await user.permissions().attach(createPost.id);
+
   const post = await Factory.model('App/Models/Post').create({
     author_id: user.id,
   });
@@ -97,8 +113,15 @@ test('It should be able to update a post', async ({ client, assert }) => {
   assert.equal(response.body.body, postPayload.body);
 });
 
-test('It should be able to delete a user', async ({ client, assert }) => {
+test('It should be able to delete a post', async ({ client, assert }) => {
   const user = await Factory.model('App/Models/User').create();
+
+  const createPost = await Permission.create({
+    slug: 'create-post',
+    name: 'Criação de post',
+  });
+
+  await user.permissions().attach(createPost.id);
 
   const post = await Factory.model('App/Models/Post').create({
     author_id: user.id,
