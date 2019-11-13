@@ -74,6 +74,12 @@ Utilizando o roles and permissions é possível limitar algumas rotas a apenas a
 
 [Documentação](https://www.npmjs.com/package/adonis-acl)
 
+### 1.11. Adonis slugify
+
+O adonis slugify cria o slug de forma automatica para o campo que configuramos para o o usuário não precise enviar para backend
+
+[Documentação](https://github.com/adonisjs/adonis-lucid-slugify)
+
 ## 2. Features para implementar
 
 - [x] CRUD de usuário;
@@ -84,7 +90,7 @@ Utilizando o roles and permissions é possível limitar algumas rotas a apenas a
 - [x] Middleware para disparar emails quando um author seguido publicar um artigo;
 - [x] Roles and Permissions;
 - [ ] Retornar um placeholder image se o usuário ou post não tiverem nenhuma avatar;
-- [ ] Slugify do post.title para criar url e enviar no PostMail;
+- [x] Slugify do post.title para criar url e enviar no PostMail;
 - [ ] Testes para roles and permissions
 
 ## 3. Problemas para resolver

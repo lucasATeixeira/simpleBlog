@@ -28,7 +28,7 @@ test('It should be able to show a single post', async ({ client, assert }) => {
   });
 
   const response = await client
-    .get(`posts/${post.id}`)
+    .get(`posts/${post.slug}`)
     .loginVia(user)
     .end();
 
@@ -103,7 +103,7 @@ test('It should be able to update a post', async ({ client, assert }) => {
   });
 
   const response = await client
-    .put(`posts/${post.id}`)
+    .put(`posts/${post.slug}`)
     .loginVia(user)
     .send(postPayload)
     .end();
@@ -128,7 +128,7 @@ test('It should be able to delete a post', async ({ client, assert }) => {
   });
 
   await client
-    .delete(`posts/${post.id}`)
+    .delete(`posts/${post.slug}`)
     .loginVia(user)
     .end();
 

@@ -30,7 +30,9 @@ class PostController {
   }
 
   async show({ params }) {
-    const post = await Post.find(params.id);
+    const post = await Post.query()
+      .where('slug', params.slug)
+      .first();
 
     await post.load('author');
 
@@ -38,7 +40,9 @@ class PostController {
   }
 
   async update({ request, params }) {
-    const post = await Post.findOrFail(params.id);
+    const post = await Post.query()
+      .where('slug', params.slug)
+      .first();
     const data = request.only(['avatar_id', 'author_id', 'body', 'title']);
 
     post.merge(data);
@@ -49,7 +53,9 @@ class PostController {
   }
 
   async destroy({ params }) {
-    const post = await Post.find(params.id);
+    const post = await Post.query()
+      .where('slug', params.slug)
+      .first();
 
     await post.delete();
   }

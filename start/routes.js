@@ -55,15 +55,15 @@ Route.group(() => {
 
   Route.post('files', 'FileController.store').validator('File');
 
-  Route.resource('posts', 'PostController')
-    .middleware(
-      new Map([
-        [['posts.store'], ['can:create-post']],
-        [['posts.update'], ['can:create-post']],
-        [['posts.destroy'], ['can:create-post']],
-      ])
-    )
-    .validator(
-      new Map([[['posts.store'], ['Post']], [['posts.update'], ['Post']]])
-    );
+  Route.get('posts', 'PostController.index');
+  Route.get('posts/:slug', 'PostController.show');
+  Route.post('posts', 'PostController.store')
+    .middleware('can:create-post')
+    .validator('Post');
+  Route.put('posts/:slug', 'PostController.update')
+    .middleware('can:create-post')
+    .validator('Post');
+  Route.delete('posts/:slug', 'PostController.destroy').middleware(
+    'can:create-post'
+  );
 }).middleware(['auth']);
