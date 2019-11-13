@@ -23,9 +23,9 @@ class UserSeeder {
       .first();
 
     const adminUser = await User.create({
-      name: 'Lucas Teixeira',
-      email: 'lucas.at.negocios@gmail.com',
-      password: 'lucas',
+      name: 'Administrador',
+      email: 'adm@adm.com',
+      password: '123456',
       bio: 'Aqui vai minha Bio',
     });
 

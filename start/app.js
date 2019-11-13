@@ -24,6 +24,7 @@ const providers = [
   '@adonisjs/redis/providers/RedisProvider',
   '@adonisjs/antl/providers/AntlProvider',
   'adonis-acl/providers/AclProvider',
+  '@adonisjs/lucid-slugify/providers/SlugifyProvider',
 ];
 
 /*

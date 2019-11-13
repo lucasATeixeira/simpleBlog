@@ -8,6 +8,12 @@ class Post extends Model {
     super.boot();
 
     this.addHook('afterCreate', 'PostHook.sendNewPostMail');
+
+    this.addTrait('@provider:Lucid/Slugify', {
+      fields: { slug: 'title' },
+      strategy: 'dbIncrement',
+      disableUpdates: false,
+    });
   }
 
   author() {

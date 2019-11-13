@@ -7,7 +7,7 @@ class Post {
 
   get rules() {
     return {
-      title: 'required|accepted',
+      title: 'required|accepted|unique:posts',
       body: 'required|accepted',
     };
   }

@@ -22,7 +22,14 @@ class PostSchema extends Schema {
         .inTable('users')
         .onUpdate('CASCADE')
         .onDelete('CASCADE');
-      table.string('title').notNullable();
+      table
+        .string('title')
+        .notNullable()
+        .unique();
+      table
+        .string('slug')
+        .notNullable()
+        .unique();
       table.text('body').notNullable();
       table.timestamps();
     });
