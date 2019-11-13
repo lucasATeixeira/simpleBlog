@@ -3,10 +3,11 @@
 const User = use('App/Models/User');
 
 class FollowingController {
-  async index({ params }) {
+  async index({ params, request }) {
     const user = await User.find(params.id);
+    const { page, perPage } = request.get();
 
-    const following = await user.following().fetch();
+    const following = await user.following().paginate(page || 1, perPage || 5);
 
     return following;
   }

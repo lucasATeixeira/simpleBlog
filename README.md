@@ -89,8 +89,9 @@ O adonis slugify cria o slug de forma automatica para o campo que configuramos p
 - [x] Follow em um author;
 - [x] Middleware para disparar emails quando um author seguido publicar um artigo;
 - [x] Roles and Permissions;
-- [ ] Retornar um placeholder image se o usuário ou post não tiverem nenhuma avatar;
 - [x] Slugify do post.title para criar url e enviar no PostMail;
+- [ ] Adicionar paginate em users e posts;
+- [ ] Retornar um placeholder image se o usuário ou post não tiverem nenhuma avatar;
 - [ ] Testes para roles and permissions
 
 ## 3. Problemas para resolver

@@ -3,13 +3,14 @@
 const User = use('App/Models/User');
 
 class FollowerController {
-  async index({ params }) {
+  async index({ params, request }) {
     const user = await User.find(params.id);
+    const { page, perPage } = request.get();
 
     const followers = await user
       .followers()
       .orderBy('created_at')
-      .fetch();
+      .paginate(page || 1, perPage || 5);
 
     return followers;
   }

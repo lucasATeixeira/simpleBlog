@@ -8,12 +8,14 @@
 const Post = use('App/Models/Post');
 
 class PostController {
-  async index() {
+  async index({ request }) {
+    const { page, perPage } = request.get();
+
     const posts = await Post.query()
       .with('author')
       .with('avatar')
       .orderBy('created_at')
-      .fetch();
+      .paginate(page || 1, perPage || 5);
 
     return posts;
   }

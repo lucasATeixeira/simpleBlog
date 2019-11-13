@@ -3,12 +3,12 @@
 const User = use('App/Models/User');
 
 class UserController {
-  async index() {
+  async index({ request }) {
+    const { page, perPage } = request.get();
     const users = await User.query()
-      .with('posts')
       .with('avatar')
       .orderBy('created_at')
-      .fetch();
+      .paginate(page || 1, perPage || 5);
 
     return users;
   }

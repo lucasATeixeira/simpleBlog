@@ -1,6 +1,7 @@
 'use strict';
 
 const Mail = use('Mail');
+const Env = use('Env');
 
 class PostMail {
   static get concurrency() {
@@ -12,7 +13,8 @@ class PostMail {
   }
 
   async handle({ user, author, post }) {
-    const postUrl = '';
+    const frontend = Env.get('FRONT_URL');
+    const postUrl = `${frontend}/${post.slug}`;
 
     await Mail.send(
       ['emails.newPost'],
