@@ -66,7 +66,7 @@ O Hooks do adonis foi utilizado após um post ser criado, quando o post é criad
 
 [Documentaçao](https://adonisjs.com/docs/4.1/database-hooks)
 
-## 1.10. Roles and Permissions
+### 1.10. Roles and Permissions
 
 Utilizando o roles and permissions é possível limitar algumas rotas a apenas alguns usuários. Foi utilizado o:
 
