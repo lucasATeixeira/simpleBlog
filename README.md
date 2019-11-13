@@ -85,6 +85,7 @@ Utilizando o roles and permissions é possível limitar algumas rotas a apenas a
 - [x] Roles and Permissions;
 - [ ] Retornar um placeholder image se o usuário ou post não tiverem nenhuma avatar;
 - [ ] Slugify do post.title para criar url e enviar no PostMail;
+- [ ] Testes para roles and permissions
 
 ## 3. Problemas para resolver
 
